@@ -3,6 +3,7 @@ import React from "react";
 import Header from "../../components/Header";
 
 function Category({ data }) {
+
   return (
     <>
       <Header />
@@ -14,7 +15,14 @@ function Category({ data }) {
                 <div className="mb-2 ">
                   <Link
                     to={"/category/" + item.uid}
-                    className="text-lg font-semibold leading-6 "
+                    className="text-lg font-semibold leading-6"
+                    style={{
+                      textDecoration:
+                        data.prismicCategory.data.ten_danh_muc.text ==
+                        item.data.ten_danh_muc.text
+                          ? "underline"
+                          : null,
+                    }}
                   >
                     {item.data.ten_danh_muc.text}
                   </Link>

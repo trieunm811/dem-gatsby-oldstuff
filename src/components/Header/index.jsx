@@ -66,9 +66,6 @@ function Header() {
                 </Link>
               );
             })}
-            <Link to="#" className="text-lg font-semibold leading-6 ">
-              Men
-            </Link>
             {/* <a href="#" className="text-lg font-semibold leading-6 ">
               Women
             </a>

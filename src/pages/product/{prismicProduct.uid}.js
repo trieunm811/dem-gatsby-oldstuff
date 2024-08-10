@@ -18,10 +18,11 @@ function Product({ data }) {
             />
           </div>
           <div className="flex-1">
-            <p className="font-semibold text-2xl">
+            <p className="font-normal text-2xl">
               {data.prismicProduct.data.ten_san_pham.text}
             </p>
-            <p className="font-semibold text-2xl">
+            <div className="ml-2 my-2" dangerouslySetInnerHTML={{__html: data.prismicProduct.data.mo_ta.html}} />
+            <p className="font-normal text-2xl">
               {data.prismicProduct.data.gia_tien
                 .toFixed(0)
                 .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")}
@@ -50,7 +51,7 @@ export const query = graphql`
         }
         gia_tien
         mo_ta {
-          text
+          html
         }
         ten_san_pham {
           text
