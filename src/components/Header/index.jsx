@@ -14,6 +14,7 @@ import {
   ShoppingCartOutlined,
   MenuOutlined,
 } from "@ant-design/icons";
+import { graphql, Link, useStaticQuery } from "gatsby";
 
 function Header() {
   const [open, setOpen] = useState(false);
@@ -23,14 +24,28 @@ function Header() {
   const onClose = () => {
     setOpen(false);
   };
-
+  const data = useStaticQuery(graphql`
+    query {
+      allPrismicCategory {
+        nodes {
+          uid
+          data {
+            ten_danh_muc {
+              text
+            }
+          }
+        }
+      }
+    }
+  `);
+  console.log(data);
   return (
     <>
       <div className="bg-white">
         <div className="flex lg:items-center lg:justify-center py-4 font-bold">
           <div className="flex lg:flex-1">
-            <h1 className="text-2xl font-black text-black ml-8 lg:ml-20">
-              OLDSTUFF
+            <h1 className="text-2xl font-black text-black ml-8 lg:ml-10">
+              <Link to="/"> OLDSTUFF</Link>
             </h1>
           </div>
           <div className="flex flex-1 justify-end items-center lg:hidden pr-8">
@@ -41,10 +56,20 @@ function Header() {
             />
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-center lg:gap-x-8 text-black">
-            <a href="#" className="text-lg font-semibold leading-6 ">
+            {data.allPrismicCategory.nodes?.map((item, index) => {
+              return (
+                <Link
+                  to={"/category/" + item.uid}
+                  className="text-lg font-semibold leading-6 "
+                >
+                  {item.data.ten_danh_muc.text}
+                </Link>
+              );
+            })}
+            <Link to="#" className="text-lg font-semibold leading-6 ">
               Men
-            </a>
-            <a href="#" className="text-lg font-semibold leading-6 ">
+            </Link>
+            {/* <a href="#" className="text-lg font-semibold leading-6 ">
               Women
             </a>
             <a href="#" className="text-lg font-semibold leading-6 ">
@@ -55,9 +80,9 @@ function Header() {
             </a>
             <a href="#" className="text-lg font-semibold leading-6 ">
               New & Features
-            </a>
+            </a> */}
           </div>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-x-4 mr-20">
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-x-4 mr-2">
             <ConfigProvider
               theme={{
                 components: {

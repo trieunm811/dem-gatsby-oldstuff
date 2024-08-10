@@ -1,26 +1,17 @@
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import * as React from "react";
-function HomePage(data) {
-  console.log(data);
-
-  return <div className="text-4xl">Hello guys</div>;
+import Header from "../components/Header";
+import Homepage from "../containers/Homepage";
+import Seo from "../components/Seo";
+function HomePage() {
+  return (
+    <>
+      <Header />
+      <Homepage />
+    </>
+  );
 }
 
-export default HomePage;
+export const Head = () => <Seo title="Home Page" />;
 
-export const query = graphql`
-  query Myquery {
-    site {
-      siteMetadata {
-        siteUrl
-        title
-        description
-      }
-    }
-    file {
-      internal {
-        content
-      }
-    }
-  }
-`;
+export default HomePage;
